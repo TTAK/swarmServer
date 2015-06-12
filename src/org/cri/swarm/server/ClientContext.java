@@ -9,7 +9,7 @@ import java.util.HashSet;
 
 /**
  *
- * @author arthur
+ * @author Renaud Bastien <renaudbastien@outlook.com>, Arthur Besnard <arthur.besnard@ovh.fr>
  */
 public class ClientContext {
 

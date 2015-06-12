@@ -1,5 +1,6 @@
 package org.cri.swarm.server;
 
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.channels.DatagramChannel;
@@ -12,7 +13,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author arthur besnard
+ * @author Renaud Bastien <renaudbastien@outlook.com>, Arthur Besnard <arthur.besnard@ovh.fr>
  */
 public class Server {
 
@@ -26,10 +27,13 @@ public class Server {
         dc.configureBlocking(false);
         dc.bind(new InetSocketAddress(port));
         selector=Selector.open();
-        dc.register(selector,SelectionKey.OP_ACCEPT);       
+        dc.register(selector,SelectionKey.OP_READ);       
     }
 
+
+
     public void launch() throws IOException {
+        
         Set<SelectionKey> selectedKeys = selector.selectedKeys();
         while (!Thread.interrupted()) {
             selector.select();
@@ -46,21 +50,7 @@ public class Server {
         }
     }
 
-    public void main(String args[]) {
-        int port;
-        if (args.length < 1) {
-            port = 5042;
-        } else {
-            port = Integer.parseInt(args[0]);
-        }
 
-        try {
-            Server server = new Server(port);
-            server.launch();
-        } catch (IOException ex) {
-            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 
     private void doWrite(SelectionKey key) throws IOException {
         ClientContext context = (ClientContext) key.attachment();
