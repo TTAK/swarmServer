@@ -1,7 +1,6 @@
 
 package org.cri.swarm.server;
 
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,9 +17,7 @@ public class SwarmServer {
      */
 
     public static void main(String args[]) {
-        LOGGER.setLevel(Level.INFO);
 
-        LOGGER.info("Info Log");
 
         int port;
         if (args.length < 1) {
