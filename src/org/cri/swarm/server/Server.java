@@ -117,6 +117,12 @@ public class Server {
         }
         sc.configureBlocking(false);
         SelectionKey clientKey = sc.register(selector, 0);
-        clientKey.attach(new ClientContext(key,sc,currentTime));
+        ClientContext context = new ClientContext(key,sc,currentTime);
+        clientKey.attach(context);
+        listClient.add(context);
+    }
+    
+    HashSet<ClientContext> getListClient(){
+        return listClient;
     }
 }

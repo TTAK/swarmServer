@@ -43,6 +43,7 @@ public class Operations {
                                 nameReadBuffer.flip();
                                 clientName = UTF8_CS.decode(nameReadBuffer).toString();
                                 isFinished = true;
+                                //TODO set write mode context.setWriteOp...
                             }
                         }
                     }
@@ -52,11 +53,34 @@ public class Operations {
                         return isFinished;
                     }
                 };
-
+i
         }
     }
 
-    static WriteOp getWriteOp(byte get, SocketChannel sc, ClientContext aThis) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    static WriteOp getWriteOp(byte code, SocketChannel sc, ClientContext context) {
+
+        switch (code) {
+            case (byte) 10:
+                return new WriteOp() {
+                    private final ByteBuffer writeBuffer = 
+                            ByteBuffer.allocate(Integer.BYTES * ( 2 + context.getServer().getListClient().size()));
+                    @Override
+                    public void write() throws IOException {
+                        if(writeBuffer.position() == 0){
+                            writeBuffer.putInt(context.clientId);
+                            writeBuffer.putInt(context.getServer().getListClient().size());
+                            context.getServer().getListClient().forEach(context->{
+                                writeBuffer.putInt(context.clientId);
+                            });
+                        
+                        }else if(writeBuffer.hasRemaining()){
+                            writeBuffer.flip();
+                            sc.write(writeBuffer);
+                            writeBuffer.compact();
+                        }
+                
+                    }
+                };
+        }
     }
 }

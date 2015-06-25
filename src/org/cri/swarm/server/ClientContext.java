@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class ClientContext {
     private static int lastId = 0;
-    private final int clientId;
+    final int clientId;
     private final SelectionKey key;
     private InetSocketAddress clientAddress;
     private final ByteBuffer codeReadBuffer = ByteBuffer.allocate(Byte.BYTES);
@@ -31,8 +31,10 @@ public class ClientContext {
     private long lastActionDone;
     private ReadOp currentReadOp;
     private WriteOp currentWriteOp;
+    private final Server server;
 
-    ClientContext(SelectionKey key, SocketChannel sc, long currentTime) {
+    ClientContext(SelectionKey key, SocketChannel sc, long currentTime, Server server) {
+        this.server = server;
         this.key = key;
         this.clientId = lastId;
         lastId++;
@@ -57,11 +59,7 @@ public class ClientContext {
     }
 
     void write(HashSet<ClientContext> listClient) throws IOException {
-        if (currentWriteOp.isFinished()) {
-            currentWriteOp = null;
-        } else {
-            currentWriteOp.write();
-        }
+        currentWriteOp.write();
         
         
         /*
@@ -78,11 +76,18 @@ public class ClientContext {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    void setInterestedOp(int op){
-        this.key.interestOps(op);
-    }
     
     void setWriteOp(WriteOp op){
         this.currentWriteOp = op;
+        this.key.interestOps(SelectionKey.OP_WRITE);
     }
+    
+    void setReadMode(){
+        this.key.interestOps(SelectionKey.OP_READ);
+    }
+
+    Server getServer() {
+        return server;
+    }
+    
 }
