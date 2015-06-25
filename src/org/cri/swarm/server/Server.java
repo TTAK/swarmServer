@@ -116,7 +116,7 @@ public class Server {
             return;
         }
         sc.configureBlocking(false);
-        SelectionKey clientKey = sc.register(selector, SelectionKey.OP_READ);
+        SelectionKey clientKey = sc.register(selector, 0);
         clientKey.attach(new ClientContext(key,sc,currentTime));
     }
 }
