@@ -14,5 +14,5 @@ network Codes
 | 21      | List of Poistion |  xPlayers yPlayers zPlayers | nPlayers * double * 3  | Server->Client|
 | 30      | Unregister |   |  | Client->Server|
 | 31      | Unregister |   |  | Server->Client|
-| 33      | New Player |  playerId |  int | Server->Client|
+| 33      | New Player |  playerId + X Y Z of this player |  int + double * 3| Server->Client|
 | 35      | Remove Player | playerIndex  |  int | Server->Client|
