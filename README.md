@@ -18,6 +18,6 @@ network Codes
 | 30      | Unregister |   |  | Client->Server|
 | 31      | Unregister |   |  | Server->Client|
 | 33      | New Player |  playerId + X Y Z of this player |  int + double * 3| Server->Client|
-| 35      | New Player |  playerId + X Y Z + nameSize of this player  |  int * 2 + double * 3| Server->Client|
+| 35      | New Player |  playerId + X Y Z + score + nameSize of this player  |  int * 3 + double * 3| Server->Client|
 |      | New Player |  name of this player  |  nameSize | Server->Client|
 | 39     | Remove Player | playerIndex  |  int | Server->Client|
