@@ -7,7 +7,7 @@ network Codes
 | Code  | Name  | Variables | Size | Direction| 
 | :------------: |:---------------|:-----| :---------| :---------:|
 | 10      | Register |  nameSize + clientRole | int *2 | Client->Server|
-|       | Client Name        |   name |string nameSize | Client->Server|
+|       | Client Name        |   name |nameSize | Client->Server|
 | 11      | Game Parameter |  nPlayers clientId |  int *2 | Server->Client|
 |       | List Client Id        |   clientId | int * nPlayers | Server->Client|
 | 13      | List Client Name Size |  clientNameSize |  int * nPlayers | Server->Client|
