@@ -24,6 +24,7 @@ Strandard codes :
 | 39     | Remove Player | playerIndex  |  int | Server->Client|
 
 Error codes :
+
 | Code  | Name  | Variables | Size | Direction| 
 | :------------: |:---------------|:-----| :---------| :---------:|
 | 100      | Invalid code |  100 | int | Server->client|
