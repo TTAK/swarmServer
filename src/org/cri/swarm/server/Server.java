@@ -77,7 +77,8 @@ public class Server {
     }
 
     private void close() {
-        this.listClient.forEach(context->context.close());
+        this.listClient.forEach(context->context.close()); 
+        
     }
 
     private void processSelectedKeys(long currentTime) throws IOException {
