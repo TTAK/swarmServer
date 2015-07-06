@@ -77,7 +77,7 @@ public class Server {
     }
 
     private void close() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.listClient.forEach(context->context.close());
     }
 
     private void processSelectedKeys(long currentTime) throws IOException {
