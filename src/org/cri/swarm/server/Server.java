@@ -2,7 +2,6 @@ package org.cri.swarm.server;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.nio.channels.DatagramChannel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
@@ -66,18 +65,13 @@ public class Server {
         if (context == null) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, "illegal state for client");
         } else {
-            context.write(listClient);
+            context.write();
         }
 
     }
 
     private void doRead(SelectionKey key) throws IOException {
         ClientContext context = (ClientContext) key.attachment();
-        if (context == null) {
-            context = new ClientContext(key);
-            listClient.add(context);
-            ///TODO remove client when inactive
-        }
         context.read();
 
     }
@@ -86,7 +80,7 @@ public class Server {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private void processSelectedKeys(long currentTime) {
+    private void processSelectedKeys(long currentTime) throws IOException {
 
         for (SelectionKey key : selectedKeys) {
             if (key.isValid()) {
@@ -117,12 +111,12 @@ public class Server {
         }
         sc.configureBlocking(false);
         SelectionKey clientKey = sc.register(selector, 0);
-        ClientContext context = new ClientContext(key,sc,currentTime);
+        ClientContext context = new ClientContext(clientKey, sc, currentTime, this);
         clientKey.attach(context);
         listClient.add(context);
     }
     
-    HashSet<ClientContext> getListClient(){
+    Set<ClientContext> getListClient(){
         return listClient;
     }
 }
