@@ -71,22 +71,39 @@ public class Requests {
                         return ready;
                     }
                 };
+                
             default:
                 return new Request() {
-                    //TODO error case
+                    
                     @Override
                     public Response process(ClientContext context) {
-                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                        ByteBuffer buffer = ByteBuffer.allocate(Integer.BYTES);
+                        buffer.putInt(100);
+                        buffer.flip();
+                        
+                        return new Response() {
+                            
+                            @Override
+                            public boolean isSent() {
+                                return !buffer.hasRemaining();
+                            }
+
+                            @Override
+                            public int write(SocketChannel sc) throws IOException {
+                                return sc.write(buffer);
+                            }
+                            
+                        };
                     }
 
                     @Override
                     public void readData(SocketChannel sc) throws IOException {
-                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                        //Nothing to do;
                     }
 
                     @Override
                     public boolean ready() {
-                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                        return true;
                     }
                 };
         }

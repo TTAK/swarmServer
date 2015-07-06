@@ -3,6 +3,7 @@
 
 network Codes
 
+Strandard codes : 
 
 | Code  | Name  | Variables | Size | Direction| 
 | :------------: |:---------------|:-----| :---------| :---------:|
@@ -21,3 +22,8 @@ network Codes
 | 35      | New Player |  playerId + X Y Z + score + nameSize of this player  |  int * 3 + double * 3| Server->Client|
 |      | New Player |  name of this player  |  nameSize | Server->Client|
 | 39     | Remove Player | playerIndex  |  int | Server->Client|
+
+Error codes :
+| Code  | Name  | Variables | Size | Direction| 
+| :------------: |:---------------|:-----| :---------| :---------:|
+| 100      | Invalid code |  100 | int | Server->client|
