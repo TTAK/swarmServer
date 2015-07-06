@@ -16,7 +16,7 @@ public class Requests {
 
     static Request getRequest(byte get) {
         switch (get) {
-            case (byte) 10:
+            case Request.Codes.REGISTER:
                 return new Request() {
                     private final ByteBuffer sizeReadBuffer = ByteBuffer.allocate(Integer.BYTES);
                     private ByteBuffer nameReadBuffer;
@@ -25,7 +25,8 @@ public class Requests {
 
                     @Override
                     public Response process(ClientContext context) {
-                        ByteBuffer sendBuffer = ByteBuffer.allocate(Integer.BYTES * (context.getPlayerList().size() + 1));
+                        ByteBuffer sendBuffer = ByteBuffer.allocate(Integer.BYTES * (context.getPlayerList().size() + 1) + 1);
+                        sendBuffer.put(Response.Codes.GAME_PARAM);
                         sendBuffer.putInt(context.getPlayerList().size());
                         context.getPlayerList().forEach(playerContext -> sendBuffer.putInt(playerContext.clientId));
                         sendBuffer.flip();
@@ -78,7 +79,7 @@ public class Requests {
                     @Override
                     public Response process(ClientContext context) {
                         ByteBuffer buffer = ByteBuffer.allocate(Integer.BYTES);
-                        buffer.putInt(100);
+                        buffer.putInt(Response.Codes.INVALID_CODE);
                         buffer.flip();
                         
                         return new Response() {
