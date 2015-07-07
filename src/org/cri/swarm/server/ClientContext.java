@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
-import java.util.HashSet;
 import java.util.Set;
 import org.cri.tcputils.TCPUtils;
 
@@ -21,6 +20,7 @@ public class ClientContext {
     private long lastActionDone;
     private long currentTime;
     private final Server server;
+    private String name;
     
     double X;
     double Y;
@@ -39,6 +39,10 @@ public class ClientContext {
         this.sc = sc;
         this.lastActionDone = currentTime;
         this.currentTime = currentTime;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     void read() throws IOException {

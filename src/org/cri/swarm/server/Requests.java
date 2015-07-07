@@ -14,8 +14,10 @@ public class Requests {
 
     private static final Charset UTF8_CHARSET = Charset.forName("UTF8");
 
-    static Request getRequest(byte get) {
-        switch (get) {
+    static Request getRequest(byte code) {
+        
+        switch (code) {
+            
             case Request.Codes.REGISTER:
                 return new Request() {
                     private final ByteBuffer sizeReadBuffer = ByteBuffer.allocate(Integer.BYTES);
@@ -25,6 +27,10 @@ public class Requests {
 
                     @Override
                     public Response process(ClientContext context) {
+                        if(!ready){
+                            throw new IllegalStateException("The is not ready to be processed");
+                        }
+                        context.setName(name);
                         ByteBuffer sendBuffer = ByteBuffer.allocate(Integer.BYTES * (context.getPlayerList().size() + 1) + 1);
                         sendBuffer.put(Response.Codes.GAME_PARAM);
                         sendBuffer.putInt(context.getPlayerList().size());

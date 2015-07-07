@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.nio.channels.SocketChannel;
 
 /**
- *
+ * Define a response to a client from the server
  * @author Renaud Bastien <renaudbastien@outlook.com>, Arthur Besnard <arthur.besnard@ovh.fr>
  */
 interface Response {

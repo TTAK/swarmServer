@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package org.cri.tcputils;
 
 import java.io.IOException;
@@ -10,7 +6,7 @@ import java.nio.channels.Channel;
 
 /**
  *
- * @author renaud
+ * @author Renaud Bastien <renaudbastien@outlook.com>, Arthur Besnard <arthur.besnard@ovh.fr>
  */
 public class TCPUtils {
     
